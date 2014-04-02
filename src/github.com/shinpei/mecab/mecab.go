@@ -16,8 +16,8 @@ static const char *go_mecab_version(void) {
   return mecab_version();
 }
 
-static const char *go_mecab_version() {
-  return mecab_strerror();
+static const char *go_mecab_strerror(mecab_t *mecab) {
+  return mecab_strerror(mecab);
 }
 
 static void go_mecab_destroy(mecab_t* mecab) {
@@ -72,11 +72,11 @@ static const char *go_mecab_sparse_tostr3(mecab_t *mecab, const char *str, size_
   return mecab_sparse_tostr3(mecab, str, len, ostr, olen);
 }
 
-static mecab_node_t *go_mecab_sparse_tonode(mecab_t *mecab, const char* str) {
+static const mecab_node_t *go_mecab_sparse_tonode(mecab_t *mecab, const char* str) {
   return mecab_sparse_tonode(mecab, str);
 }
 
-static mecab_node_t *go_mecab_sparse_tonode2(mecab_t *mecab, const char* str, size_t len) {
+static const mecab_node_t *go_mecab_sparse_tonode2(mecab_t *mecab, const char* str, size_t len) {
   return mecab_sparse_tonode2(mecab, str, len);
 }
 
@@ -84,11 +84,11 @@ static const char *go_mecab_nbest_sparse_tostr(mecab_t *mecab, size_t n, const c
   return mecab_nbest_sparse_tostr(mecab, n, str);
 }
 
-static char *go_mecab_nbest_sparse_tostr2(mecab_t *mecab, size_t n, const char *str, size_t len) {
+static const char *go_mecab_nbest_sparse_tostr2(mecab_t *mecab, size_t n, const char *str, size_t len) {
   return mecab_nbest_sparse_tostr2(mecab, n, str, len);
 }
 
-static char *go_mecab_nbest_sparse_tostr3(mecab_t *mecab, size_t n, const char *str, size_t len, const char* ostr, size_t olen) {
+static const char *go_mecab_nbest_sparse_tostr3(mecab_t *mecab, size_t n, const char *str, size_t len, char* ostr, size_t olen) {
   return mecab_nbest_sparse_tostr3(mecab, n, str, len, ostr, olen);
 }
 
@@ -109,14 +109,14 @@ static char *go_mecab_nbest_next_tostr2 (mecab_t *mecab, char *ostr, size_t olen
 }
 
 static const mecab_node_t *go_mecab_nbest_next_tonode (mecab_t *mecab) {
-  return mecab_nbest_next_tonode(mecab)
+  return mecab_nbest_next_tonode(mecab);
 }
 
 static const char *go_mecab_format_node (mecab_t *mecab, const mecab_node_t *node) {
   return mecab_format_node(mecab, node);
 }
 
-static mecab_dictionary_info_t *go_mecab_dictionary_info(mecab_t *mecab) {
+static const mecab_dictionary_info_t *go_mecab_dictionary_info(mecab_t *mecab) {
   return mecab_dictionary_info(mecab);
 }
 
@@ -140,15 +140,14 @@ static mecab_node_t *go_mecab_lattice_get_bos_node(mecab_lattice_t *lattice) {
   return mecab_lattice_get_bos_node(lattice);
 }
 
-static mecab_node_t *go_mecab_lattice_get_eos_node(mecab_lattice_t +lattice) {
+static mecab_node_t *go_mecab_lattice_get_eos_node(mecab_lattice_t *lattice) {
   return mecab_lattice_get_eos_node(lattice);
 }
 
-static mecab_node_t **mecab_lattice_get_all_begin_nodes (mecab_lattice_t *lattice) {
+static mecab_node_t **go_mecab_lattice_get_all_begin_nodes (mecab_lattice_t *lattice) {
   return mecab_lattice_get_all_begin_nodes (lattice);
 }
 */
-
 import "C"
 
 func main () {
