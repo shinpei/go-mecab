@@ -147,9 +147,23 @@ static mecab_node_t *go_mecab_lattice_get_eos_node(mecab_lattice_t *lattice) {
 static mecab_node_t **go_mecab_lattice_get_all_begin_nodes (mecab_lattice_t *lattice) {
   return mecab_lattice_get_all_begin_nodes (lattice);
 }
+
+
 */
 import "C"
 
+type Tagger struct {
+  tagger *C.mecab_t
+
+}
+
+func Create() *Tagger {
+  taggerPtr := new(Tagger);
+  emptyStringPtr := C.CString("");
+  taggerPtr.tagger = go_mecab_lattice_new(emptyStringPtr);
+  return taggerPtr
+}
+
 func main () {
-  var m *C.mecab_t = C.go_mecab_new2("");
+  tagger := Create();
 }
