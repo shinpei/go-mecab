@@ -1,4 +1,4 @@
-package main
+package mecab
 
 /*
 #cgo LDFLAGS: -L/usr/local/lib -lmecab -lstdc++
@@ -158,12 +158,16 @@ type Tagger struct {
 }
 
 func Create() *Tagger {
-  taggerPtr := new(Tagger);
-  emptyStringPtr := C.CString("");
-  taggerPtr.tagger = go_mecab_lattice_new(emptyStringPtr);
+  taggerPtr := new(Tagger)
+  emptyStringPtr := C.CString("")
+  taggerPtr.tagger = C.go_mecab_new2(emptyStringPtr)
   return taggerPtr
 }
 
-func main () {
-  tagger := Create();
+
+func (this *Tagger) Parse (target string) string {  
+  p := C.CString(target);
+  c_str := C.go_mecab_sparse_tostr(this.tagger, p);
+  s := C.GoString(c_str);
+  return s;
 }

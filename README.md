@@ -11,21 +11,20 @@ go-mecab provides simple low-level bindings for [mecab](http://mecab.googlecode.
 
 ```csh
 $ go bulid github.com/shinpei/mecab
-$ go install
-
+$ go install github.com/shinpei/mecab
+$ go build // to build exmaple
+$ ./go-mecab // to execute example
 ```
 ## Example
 
 ```go
  import "github.com/shinpei/mecab"
 
- var m = mecab.create("");
- var str = "こんにちは、世界";
- var ret = m.parse(str);
- fmt.Printf("%s", ret);
+ tagger := mecab.Create();
+ str := "こんにちは、世界";
+ ret := tagger.Parse(str);
+ fmt.Println(ret);
 ```
-
-
 
 ## Lisences, contact info, contribute
 It's under [ASL2.0](http://www.apache.org/licenses/LICENSE-2.0). If you find bug or improvement request, please contact me through twitter, @shinpeintk. And always welcoming heartful pull request.
