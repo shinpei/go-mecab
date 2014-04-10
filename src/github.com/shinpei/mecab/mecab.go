@@ -8,20 +8,8 @@ static mecab_t * go_mecab_new (int ac, char ** av) {
   return mecab_new (ac, av);
 }
 
-static mecab_t * go_mecab_new2(char *arg) {
-  return mecab_new2(arg);
-}
-
-static const char *go_mecab_version(void) {
-  return mecab_version();
-}
-
 static const char *go_mecab_strerror(mecab_t *mecab) {
   return mecab_strerror(mecab);
-}
-
-static void go_mecab_destroy(mecab_t* mecab) {
-  mecab_destroy(mecab);
 }
 
 static int go_mecab_get_partial(mecab_t *mecab) {
@@ -58,10 +46,6 @@ static void go_mecab_set_all_morphs (mecab_t *mecab, int all_morphs) {
 
 static int go_mecab_parse_lattice(mecab_t *mecab, mecab_lattice_t *lattice) {
   return mecab_parse_lattice(mecab, lattice);
-}
-
-static const char* go_mecab_sparse_tostr(mecab_t *mecab, const char *str) {
-  return mecab_sparse_tostr(mecab, str);
 }
 
 static const char *go_mecab_sparse_tostr2(mecab_t *mecab, const char *str, size_t len) {
@@ -152,22 +136,73 @@ static mecab_node_t **go_mecab_lattice_get_all_begin_nodes (mecab_lattice_t *lat
 */
 import "C"
 
+type Dictionary struct {
+  filename string
+  charset string
+  size int
+  itype int
+  lsize int
+  rsize int
+  version int
+  next *Dictionary
+}
+
+type Node struct {
+  prev *Node;
+  next *Node;
+  enext *Node;
+  bnext *Node;
+  surface string;
+  feature string;
+  id int;
+  length int;
+  rlength int;
+  rcAttr int;
+  lcAttr int;
+  posid int;
+  charType int;
+  stat int;
+  isbest int;
+  alpha  float64;
+  beta  float64;
+  prob float64;
+  wcost int;
+  cost int;
+}
+
 type Tagger struct {
   tagger *C.mecab_t
-
 }
+
+
+// ============================================
+// instance methods
 
 func Create() *Tagger {
   taggerPtr := new(Tagger)
   emptyStringPtr := C.CString("")
-  taggerPtr.tagger = C.go_mecab_new2(emptyStringPtr)
+  taggerPtr.tagger = C.mecab_new2(emptyStringPtr)
   return taggerPtr
 }
 
 
-func (this *Tagger) Parse (target string) string {  
+func (this *Tagger) Parse (target string) string {
   p := C.CString(target);
-  c_str := C.go_mecab_sparse_tostr(this.tagger, p);
+  c_str := C.mecab_sparse_tostr(this.tagger, p);
   s := C.GoString(c_str);
   return s;
 }
+
+
+func (this *Tagger) Destroy () {
+  C.mecab_destroy(this.tagger);
+}
+// ============================================
+// this is static anyway
+
+func GetVersion() string {
+  p := C.mecab_version();
+  return C.GoString(p);
+}
+
+// ============================================

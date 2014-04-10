@@ -12,13 +12,14 @@ go-mecab provides simple low-level bindings for [mecab](http://mecab.googlecode.
 ```csh
 $ go bulid github.com/shinpei/mecab
 $ go install github.com/shinpei/mecab
-$ go build // to build exmaple
-$ ./go-mecab // to execute example
+$ go build # to build exmaple
+$ ./go-mecab # to execute example
 ```
 ## Example
 
 ```go
  import "github.com/shinpei/mecab"
+ import "fmt"
 
  tagger := mecab.Create();
  str := "こんにちは、世界";
