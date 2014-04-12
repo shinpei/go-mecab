@@ -139,78 +139,16 @@ static mecab_node_t **go_mecab_lattice_get_all_begin_nodes (mecab_lattice_t *lat
 */
 import "C"
 
-type Dictionary struct {
-	filename string
-	charset  string
-	size     int
-	itype    int
-	lsize    int
-	rsize    int
-	version  int
-	next     *Dictionary
+type DictionaryInfo struct {
+  ptr *C.mecab_dictionary_info_t
 }
 
 type Node struct {
-	prev     *Node
-	next     *Node
-	enext    *Node
-	bnext    *Node
-	surface  string
-	feature  string
-	id       int
-	length   int
-	rlength  int
-	rcAttr   int
-	lcAttr   int
-	posid    int
-	charType int
-	stat     int
-	isbest   int
-	alpha    float64
-	beta     float64
-	prob     float64
-	wcost    int
-	cost     int
+  ptr *C.mecab_node_t
 }
 
 type Tagger struct {
-	tagger *C.mecab_t
-}
-
-// ============================================
-// translation method
-
-func TransCMecabNode2Go(node_ptr *C.mecab_node_t) *Node {
-  if (node_ptr == nil) {
-    return nil;
-  }
-	return &Node {
-    prev: TransCStructMecabNode2Go(node_ptr.prev),
-    next: TransCStructMecabNode2Go(node_ptr.next),
-
-  }
-}
-
-func TransCStructMecabNode2Go (node_ptr *C.struct_mecab_node_t) *Node {
-  if (node_ptr == nil) {
-    return nil;
-  }
-  return &Node {
-    prev: TransCStructMecabNode2Go(node_ptr.prev),
-    next: TransCStructMecabNode2Go(node_ptr.next),
-    enext: TransCStructMecabNode2Go(node_ptr.enext),
-    bnext: TransCStructMecabNode2Go(node_ptr.bnext),
-    surface: C.GoString(node_ptr.surface),
-    feature: C.GoString(node_ptr.feature),
-    id: int(node_ptr.id),
-    length: int(node_ptr.length),
-    rlength: int(node_ptr.rlength),
-    rcAttr: int(node_ptr.rcAttr),
-    lcAttr: int(node_ptr.lcAttr),
-    posid: int(node_ptr.posid),
-    charType : int(node_ptr.char_type),
-    stat: int(node_ptr.stat),
-  }
+	ptr *C.mecab_t
 }
 
 // ============================================
@@ -219,25 +157,32 @@ func TransCStructMecabNode2Go (node_ptr *C.struct_mecab_node_t) *Node {
 func Create() *Tagger {
 	taggerPtr := new(Tagger)
 	emptyStringPtr := C.CString("")
-	taggerPtr.tagger = C.mecab_new2(emptyStringPtr)
+	taggerPtr.ptr = C.mecab_new2(emptyStringPtr)
 	return taggerPtr
 }
 
 func (this *Tagger) Parse(target string) string {
-	p := C.CString(target)
-	c_str := C.mecab_sparse_tostr(this.tagger, p)
-	s := C.GoString(c_str)
-	return s
+	target_ptr := C.CString(target)
+	result_ptr := C.mecab_sparse_tostr(this.ptr, target_ptr)
+  return C.GoString(result_ptr)
+}
+
+func (this *Tagger) ParseNBest(size int, target string) string {
+  target_ptr := C.CString(target);
+  result_ptr := C.mecab_nbest_sparse_tostr(this.ptr, C.size_t(size), target_ptr);
+  return C.GoString(result_ptr);
 }
 
 func (this *Tagger) ParseToNode(target string) *Node {
 	target_ptr := C.CString(target)
-	node_ptr := C.mecab_sparse_tonode(this.tagger, target_ptr)
-	return TransCMecabNode2Go(node_ptr)
+	node_ptr := C.mecab_sparse_tonode(this.ptr, target_ptr)
+	return &Node{
+    ptr: node_ptr,
+  };
 }
 
 func (this *Tagger) Destroy() {
-	C.mecab_destroy(this.tagger)
+	C.mecab_destroy(this.ptr)
 }
 
 // ============================================
