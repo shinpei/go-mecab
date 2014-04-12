@@ -21,7 +21,7 @@ func main() {
 	fmt.Println(node.HasNext());
 	for i:=0;  node.HasNext(); i++ {
 		node.Next();
-		fmt.Println(node.GetId());
+		fmt.Println(node.GetSurface());
 	}
 	fmt.Println("####### ParseNBest(3, str) ########");
 	fmt.Println(tagger.ParseNBest(3, s));
