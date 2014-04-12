@@ -15,14 +15,18 @@ func main() {
 	result := tagger.Parse(s)
 	fmt.Println(result)
 
-	fmt.Println("####### ParseNode ########");
   node := tagger.ParseToNode(s);
-	fmt.Println(node);
-
+	fmt.Println("####### Node.Next ########");
+	fmt.Print("has next:");
+	fmt.Println(node.HasNext());
+	for i:=0;  node.HasNext(); i++ {
+		node.Next();
+		fmt.Println(node.GetId());
+	}
 	fmt.Println("####### ParseNBest(3, str) ########");
 	fmt.Println(tagger.ParseNBest(3, s));
 
-	fmt.Println("####### Next ########");
+	fmt.Println("####### Mecab.Next ########");
 	fmt.Println(tagger.Next());
 	fmt.Println(tagger.Next());
 	fmt.Println(tagger.Next());
