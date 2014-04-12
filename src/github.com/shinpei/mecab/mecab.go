@@ -181,6 +181,11 @@ func (this *Tagger) ParseToNode(target string) *Node {
   };
 }
 
+func (this *Tagger) Next() string {
+  result_ptr := C.mecab_nbest_next_tostr(this.ptr);
+  return C.GoString(result_ptr);
+}
+
 func (this *Tagger) Destroy() {
 	C.mecab_destroy(this.ptr)
 }

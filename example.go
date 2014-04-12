@@ -8,7 +8,7 @@ func main() {
 
 	tagger := mecab.Create()
 	fmt.Println("####### given parameter str ########");
-	s := "こんにちは、僕は山田太郎です。"
+	s := "太郎は次郎が持っている本を花子に渡した。"
 	fmt.Println("str=" + s)
 
 	fmt.Println("####### Parse ########");
@@ -21,5 +21,12 @@ func main() {
 
 	fmt.Println("####### ParseNBest(3, str) ########");
 	fmt.Println(tagger.ParseNBest(3, s));
-	tagger.Destroy()
+
+	fmt.Println("####### Next ########");
+	fmt.Println(tagger.Next());
+	fmt.Println(tagger.Next());
+	fmt.Println(tagger.Next());
+
+
+	tagger.Destroy();
 }
