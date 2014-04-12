@@ -133,6 +133,8 @@ static mecab_node_t **go_mecab_lattice_get_all_begin_nodes (mecab_lattice_t *lat
   return mecab_lattice_get_all_begin_nodes (lattice);
 }
 
+// casting typedef struct
+
 
 */
 import "C"
@@ -178,10 +180,37 @@ type Tagger struct {
 // ============================================
 // translation method
 
-func GoMecabNode(node_ptr *C.mecab_node_t) Node {
-	node := Node{}
+func TransCMecabNode2Go(node_ptr *C.mecab_node_t) *Node {
+  if (node_ptr == nil) {
+    return nil;
+  }
+	return &Node {
+    prev: TransCStructMecabNode2Go(node_ptr.prev),
+    next: TransCStructMecabNode2Go(node_ptr.next),
 
-	return node
+  }
+}
+
+func TransCStructMecabNode2Go (node_ptr *C.struct_mecab_node_t) *Node {
+  if (node_ptr == nil) {
+    return nil;
+  }
+  return &Node {
+    prev: TransCStructMecabNode2Go(node_ptr.prev),
+    next: TransCStructMecabNode2Go(node_ptr.next),
+    enext: TransCStructMecabNode2Go(node_ptr.enext),
+    bnext: TransCStructMecabNode2Go(node_ptr.bnext),
+    surface: C.GoString(node_ptr.surface),
+    feature: C.GoString(node_ptr.feature),
+    id: int(node_ptr.id),
+    length: int(node_ptr.length),
+    rlength: int(node_ptr.rlength),
+    rcAttr: int(node_ptr.rcAttr),
+    lcAttr: int(node_ptr.lcAttr),
+    posid: int(node_ptr.posid),
+    charType : int(node_ptr.char_type),
+    stat: int(node_ptr.stat),
+  }
 }
 
 // ============================================
@@ -201,10 +230,10 @@ func (this *Tagger) Parse(target string) string {
 	return s
 }
 
-func (this *Tagger) ParseToNode(target string) Node {
+func (this *Tagger) ParseToNode(target string) *Node {
 	target_ptr := C.CString(target)
 	node_ptr := C.mecab_sparse_tonode(this.tagger, target_ptr)
-	return GoMecabNode(node_ptr)
+	return TransCMecabNode2Go(node_ptr)
 }
 
 func (this *Tagger) Destroy() {
