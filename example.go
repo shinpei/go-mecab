@@ -26,6 +26,13 @@ func main() {
 	fmt.Println("####### ParseNBest(3, str) ########");
 	fmt.Println(tagger.ParseNBest(3, s));
 
+	fmt.Println("####### ParseNBest(str) ########");
+	ret := tagger.ParseNBestInit(s);
+	fmt.Printf("nbest=%d\n", ret);
+	for i:=0; i<3; i++ {
+		fmt.Printf("i:%d %s", i, tagger.Next());
+	}
+	
 	fmt.Println("####### Mecab.Next ########");
 	fmt.Println(tagger.Next());
 	fmt.Println(tagger.Next());

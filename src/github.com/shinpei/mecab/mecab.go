@@ -47,6 +47,11 @@ func (this *Tagger) ParseNBest(size int, target string) string {
 	return C.GoString(result_ptr)
 }
 
+func (this *Tagger) ParseNBestInit(target string) int {
+  target_ptr := C.CString(target);
+  return int (C.mecab_nbest_init(this.ptr, target_ptr));
+}
+
 func (this *Tagger) ParseToNode(target string) *Node {
 	target_ptr := C.CString(target)
 	node_ptr := C.mecab_sparse_tonode(this.ptr, target_ptr)
@@ -88,6 +93,52 @@ func (this *Node) GetId() int {
   return int(this.ptr.id);
 }
 
+func (this *Node) GetLength() int {
+  return int (this.ptr.length);
+}
+
+func (this *Node) GetRlength () int {
+  return int (this.ptr.rlength);
+}
+
+func (this *Node) GetPosid() int {
+  return int(this.ptr.posid);
+}
+
+// TODO: map unsigned char
+func (this *Node) GetCharType() int {
+  return int(this.ptr.char_type);
+}
+
+//TODO: map unsigned char
+func (this *Node) GetStat () int {
+  return int(this.ptr.stat);
+}
+
+//TODO: map unsigned char
+func (this *Node) GetIsBest () int {
+  return int(this.ptr.isbest);
+}
+
+func (this *Node) GetAlpha () float32 {
+  return float32(this.ptr.alpha);
+}
+
+func (this *Node) GetBeta () float32 {
+  return float32(this.ptr.beta);
+}
+
+func (this *Node)  GetProb () float32 {
+  return float32(this.ptr.prob);
+}
+
+func (this *Node) GetWcost() int {
+  return int(this.ptr.wcost);
+}
+
+func (this *Node) GetCost () int {
+  return int (this.ptr.cost);
+}
 
 
 
