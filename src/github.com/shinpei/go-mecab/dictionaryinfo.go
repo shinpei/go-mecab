@@ -41,7 +41,16 @@ func (this *DictionaryInfo) GetVersion() int {
   return int(this.ptr.version);
 }
 
+func (this *DictionaryInfo) Next()  {
+  ptr := C.trans_mecab_dictionary_t(this.ptr.next);
+  this.ptr = ptr;
+}
+
+func (this *DictionaryInfo) HasNext() bool {
+  return this.ptr.next != nil;
+}
+
 //TODO: next
-func (this *DictionaryInfo) GetNext() *DictionaryInfo {
+func (this *DictionaryInfo) GetNextAsNew() *DictionaryInfo {
   return &DictionaryInfo{ptr: C.trans_mecab_dictionary_t(this.ptr.next)};
 }

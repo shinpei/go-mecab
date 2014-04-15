@@ -31,7 +31,7 @@ func (this *Tagger) ParseNBestInit(target string) int {
 func (this *Tagger) ParseToNode(target string) *Node {
 	target_ptr := C.CString(target)
 	node_ptr := C.mecab_sparse_tonode(this.ptr, target_ptr)
-	return &Node{
+	return &Node {
 		ptr: node_ptr,
 	}
 }

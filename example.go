@@ -59,12 +59,29 @@ func main() {
 
 	fmt.Println("####### DictionaryInfo ########");
 	dict := tagger.GetDictionaryInfo();
-	fmt.Println(dict.GetFilename());
+	fmt.Printf("filename:%s\n", dict.GetFilename());
+	fmt.Printf("charset:%s\n", dict.GetCharset());
+	fmt.Printf("size:%d\n", dict.GetSize());
+	fmt.Printf("type:%d\n", dict.GetType());
+	fmt.Printf("lsize:%d\n", dict.GetLsize());
+	fmt.Printf("rsize:%d\n", dict.GetRsize());
+	fmt.Printf("version:%d\n", dict.GetVersion());
 
+	for i:=0; node.HasNext();i++ {
+		dict.Next();
+		fmt.Printf("filename:%s\n", dict.GetFilename());
+		fmt.Printf("charset:%s\n", dict.GetCharset());
+		fmt.Printf("size:%d\n", dict.GetSize());
+		fmt.Printf("type:%d\n", dict.GetType());
+		fmt.Printf("lsize:%d\n", dict.GetLsize());
+		fmt.Printf("rsize:%d\n", dict.GetRsize());
+		fmt.Printf("version:%d\n", dict.GetVersion());
+	}
 
 	fmt.Println("####### Constants  ########");
 	fmt.Printf("MECAB_SYS_DIC=%d\n", mecab.MECAB_SYS_DIC);
 	fmt.Printf("MECAB_USR_DIC=%d\n", mecab.MECAB_USR_DIC);
 	fmt.Printf("MECAB_UNK_DIC=%d\n", mecab.MECAB_UNK_DIC);
+
 	tagger.Destroy();
 }
