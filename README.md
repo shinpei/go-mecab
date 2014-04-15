@@ -1,6 +1,5 @@
 # go-mecab: low-level mecab bindings for Go
 
-
 go-mecab provides simple low-level bindings for [mecab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html), japanese morphological analyzer.
 
 ## Requirement
