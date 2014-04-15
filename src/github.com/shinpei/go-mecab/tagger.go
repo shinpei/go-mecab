@@ -4,9 +4,6 @@ package mecab
 #cgo LDFLAGS: -L/usr/local/lib -lmecab -lstdc++
 #include <mecab.h>
 
-static mecab_node_t *trans_mecab_node_t (struct mecab_node_t *node){
-  return node;
-}
 */
 import "C"
 
@@ -46,4 +43,9 @@ func (this *Tagger) Next() string {
 
 func (this *Tagger) Destroy() {
 	C.mecab_destroy(this.ptr)
+}
+
+func (this *Tagger) GetDictionaryInfo() *DictionaryInfo {
+  dic_ptr := C.mecab_dictionary_info(this.ptr);
+  return &DictionaryInfo{ptr: dic_ptr};
 }

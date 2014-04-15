@@ -3,8 +3,8 @@ package mecab
 #cgo LDFLAGS: -L/usr/local/lib -lmecab -lstdc++
 #include <mecab.h>
 
-static mecab_node_t *trans_mecab_node_t (struct mecab_node_t *node){
-  return node;
+static mecab_dictionary_info_t *trans_mecab_dictionary_t (struct mecab_dictionary_info_t *dict){
+  return dict;
 }
 */
 import "C"
@@ -42,3 +42,6 @@ func (this *DictionaryInfo) GetVersion() int {
 }
 
 //TODO: next
+func (this *DictionaryInfo) GetNext() *DictionaryInfo {
+  return &DictionaryInfo{ptr: C.trans_mecab_dictionary_t(this.ptr.next)};
+}

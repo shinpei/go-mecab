@@ -12,3 +12,11 @@ import "C"
 type Path struct {
   ptr *C.mecab_path_t;
 }
+
+func (this *Path) cost () int {
+  return int (this.ptr.cost);
+}
+
+func(this *Path) prob () float32 {
+  return float32(this.ptr.prob);
+}

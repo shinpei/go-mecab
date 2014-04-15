@@ -10,7 +10,6 @@ static mecab_node_t *trans_mecab_node_t (struct mecab_node_t *node){
 */
 import "C"
 
-
 type Lattice struct {
   ptr *C.mecab_lattice_t
 }

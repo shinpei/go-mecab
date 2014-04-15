@@ -3,6 +3,11 @@ package main
 import "github.com/shinpei/go-mecab"
 import "fmt"
 
+/*
+Go-mecab version of the example code below,
+http://mecab.googlecode.com/svn/trunk/mecab/doc/libmecab.html
+*/
+
 func main() {
 	fmt.Println("version: " + mecab.GetVersion())
 
@@ -37,8 +42,6 @@ func main() {
 
 	}
 
-
-
 	fmt.Println("####### ParseNBest(3, str) ########");
 	fmt.Println(tagger.ParseNBest(3, s));
 
@@ -54,6 +57,9 @@ func main() {
 	fmt.Println(tagger.Next());
 	fmt.Println(tagger.Next());
 
+	fmt.Println("####### DictionaryInfo ########");
+	dict := tagger.GetDictionaryInfo();
+	fmt.Println(dict.GetFilename());
 
 
 	fmt.Println("####### Constants  ########");
