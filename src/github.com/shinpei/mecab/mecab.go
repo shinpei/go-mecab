@@ -13,13 +13,6 @@ import "C"
 // ============================================
 // Types
 
-type DictionaryInfo struct {
-	ptr *C.mecab_dictionary_info_t
-}
-
-type Lattice struct {
-	ptr *C.mecab_lattice_t
-}
 
 // ============================================
 // instance methods
