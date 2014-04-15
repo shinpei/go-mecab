@@ -53,8 +53,44 @@ func (this *Lattice) GetNext() int {
   return int(C.mecab_lattice_next(this.ptr));
 }
 
+func (this *Lattice) GetRequestType () int {
+  return int (C.mecab_lattice_get_request_type(this.ptr));
+}
+
 // ============================================
 // Methods
+
+//TODO: int --> boolean
+func (this *Lattice) HasRequestType(requestType int) int {
+  return int(C.mecab_lattice_has_request_type(this.ptr, C.int(requestType)))
+}
+
+func (this *Lattice) SetRequestType (requestType int) {
+  C.mecab_lattice_set_request_type(this.ptr, C.int(requestType));
+}
+
+
+func (this *Lattice) AddRequestType (requestType int) {
+  C.mecab_lattice_add_request_type(this.ptr, C.int(requestType));
+}
+
+func (this *Lattice) RemoveRequestType (requestType int) {
+  C.mecab_lattice_remove_request_type(this.ptr, C.int(requestType));
+}
+
+func (this *Lattice) ToString () string {
+  return C.GoString(C.mecab_lattice_tostr(this.ptr));
+}
+
+func (this *Lattice) EnumNBestAsString(n int) string {
+  return C.GoString(C.mecab_lattice_nbest_tostr(this.ptr, C.size_t(n)));
+}
+
+//TODO: btoi need
+
+func (this *Lattice) HasConstraint () int {
+  return int (C.mecab_lattice_has_constraint (this.ptr));
+}
 
 //TODO: better to fix method name as C++ style?
 func (this *Lattice) Delete () {

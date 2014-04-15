@@ -13,6 +13,13 @@ type Tagger struct {
 
 // ============================================
 // Getter/Setter
+func (this *Tagger) GetPartial() int {
+  return int (C.mecab_get_partial(this.ptr));
+}
+
+func (this *Tagger) SetPartial (partial int) {
+  C.mecab_set_partial(this.ptr, C.int(partial));
+}
 
 func (this *Tagger) GetTheta () float32 {
   return float32(C.mecab_get_theta(this.ptr));
@@ -41,6 +48,10 @@ func (this *Tagger) SetAllMorphs(morphs int) {
 // ============================================
 // Methods
 
+// parselattice
+func (this *Tagger) ParseLattice(lat Lattice) int {
+  return int (C.mecab_parse_lattice(this.ptr, lat.ptr));
+}
 
 func (this *Tagger) Parse(target string) string {
 	target_ptr := C.CString(target)
