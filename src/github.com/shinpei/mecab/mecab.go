@@ -33,9 +33,9 @@ func Create() *Tagger {
 
 // Dictionary
 const (
-    MECAB_SYS_DIC = C.MECAB_SYS_DIC
-    MECAB_USR_DIC = C.MECAB_USR_DIC
-    MECAB_UNK_DIC = C.MECAB_UNK_DIC
+	MECAB_SYS_DIC = C.MECAB_SYS_DIC
+	MECAB_USR_DIC = C.MECAB_USR_DIC
+	MECAB_UNK_DIC = C.MECAB_UNK_DIC
 )
 
 // ============================================
