@@ -57,7 +57,7 @@ func (this *Node) GetStat() int {
 }
 
 //TODO: map unsigned char
-func (this *Node) GetIsBest() int {
+func (this *Node) GetIsbest() int {
 	return int(this.ptr.isbest)
 }
 

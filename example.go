@@ -15,14 +15,30 @@ func main() {
 	result := tagger.Parse(s)
 	fmt.Println(result)
 
-  node := tagger.ParseToNode(s);
 	fmt.Println("####### Node.Next ########");
+  node := tagger.ParseToNode(s);
 	fmt.Print("has next:");
 	fmt.Println(node.HasNext());
 	for i:=0;  node.HasNext(); i++ {
 		node.Next();
-		fmt.Println(node.GetSurface());
+		fmt.Printf("%s, ", node.GetSurface());
+		fmt.Printf("%d, ", node.GetId());
+		fmt.Printf("%d, ", node.GetLength());
+		fmt.Printf("%d, ", node.GetRlength());
+		fmt.Printf("%d, ", node.GetPosid());
+		fmt.Printf("%d, ", node.GetCharType());
+		fmt.Printf("%d, ", node.GetStat());
+		fmt.Printf("%d, ", node.GetIsbest());
+		fmt.Printf("%f, ", node.GetAlpha());
+		fmt.Printf("%f, ", node.GetBeta());
+		fmt.Printf("%f, ", node.GetProb());
+		fmt.Printf("%d, ", node.GetWcost());
+		fmt.Printf("%d\n", node.GetCost());
+
 	}
+
+
+
 	fmt.Println("####### ParseNBest(3, str) ########");
 	fmt.Println(tagger.ParseNBest(3, s));
 
@@ -37,6 +53,8 @@ func main() {
 	fmt.Println(tagger.Next());
 	fmt.Println(tagger.Next());
 	fmt.Println(tagger.Next());
+
+
 
 	fmt.Println("####### Constants  ########");
 	fmt.Printf("MECAB_SYS_DIC=%d\n", mecab.MECAB_SYS_DIC);
