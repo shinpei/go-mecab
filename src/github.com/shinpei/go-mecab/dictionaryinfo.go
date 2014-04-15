@@ -1,4 +1,5 @@
 package mecab
+
 /*
 #cgo LDFLAGS: -L/usr/local/lib -lmecab -lstdc++
 #include <mecab.h>
@@ -10,47 +11,47 @@ static mecab_dictionary_info_t *trans_mecab_dictionary_t (struct mecab_dictionar
 import "C"
 
 type DictionaryInfo struct {
-  ptr *C.mecab_dictionary_info_t
+	ptr *C.mecab_dictionary_info_t
 }
 
 func (this *DictionaryInfo) GetFilename() string {
-  return C.GoString(this.ptr.filename);
+	return C.GoString(this.ptr.filename)
 }
 
 func (this *DictionaryInfo) GetCharset() string {
-  return C.GoString(this.ptr.charset);
+	return C.GoString(this.ptr.charset)
 }
 
-func (this *DictionaryInfo) GetSize () int {
-  return int (this.ptr.size);
+func (this *DictionaryInfo) GetSize() int {
+	return int(this.ptr.size)
 }
 
 func (this *DictionaryInfo) GetType() int {
-  return int(this.ptr._type);
+	return int(this.ptr._type)
 }
 
 func (this *DictionaryInfo) GetLsize() int {
-  return int (this.ptr.lsize);
+	return int(this.ptr.lsize)
 }
 
 func (this *DictionaryInfo) GetRsize() int {
-  return int (this.ptr.rsize);
+	return int(this.ptr.rsize)
 }
 
 func (this *DictionaryInfo) GetVersion() int {
-  return int(this.ptr.version);
+	return int(this.ptr.version)
 }
 
-func (this *DictionaryInfo) Next()  {
-  ptr := C.trans_mecab_dictionary_t(this.ptr.next);
-  this.ptr = ptr;
+func (this *DictionaryInfo) Next() {
+	ptr := C.trans_mecab_dictionary_t(this.ptr.next)
+	this.ptr = ptr
 }
 
 func (this *DictionaryInfo) HasNext() bool {
-  return this.ptr.next != nil;
+	return this.ptr.next != nil
 }
 
 //TODO: next
 func (this *DictionaryInfo) GetNextAsNew() *DictionaryInfo {
-  return &DictionaryInfo{ptr: C.trans_mecab_dictionary_t(this.ptr.next)};
+	return &DictionaryInfo{ptr: C.trans_mecab_dictionary_t(this.ptr.next)}
 }

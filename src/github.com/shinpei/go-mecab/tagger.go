@@ -14,35 +14,35 @@ type Tagger struct {
 // ============================================
 // Getter/Setter
 func (this *Tagger) GetPartial() int {
-  return int (C.mecab_get_partial(this.ptr));
+	return int(C.mecab_get_partial(this.ptr))
 }
 
-func (this *Tagger) SetPartial (partial int) {
-  C.mecab_set_partial(this.ptr, C.int(partial));
+func (this *Tagger) SetPartial(partial int) {
+	C.mecab_set_partial(this.ptr, C.int(partial))
 }
 
-func (this *Tagger) GetTheta () float32 {
-  return float32(C.mecab_get_theta(this.ptr));
+func (this *Tagger) GetTheta() float32 {
+	return float32(C.mecab_get_theta(this.ptr))
 }
 
 func (this *Tagger) SetTheta(theta float32) {
-  C.mecab_set_theta(this.ptr, C.float(theta));
+	C.mecab_set_theta(this.ptr, C.float(theta))
 }
 
 func (this *Tagger) GetLatticeLevel() int {
-  return int(C.mecab_get_lattice_level(this.ptr));
+	return int(C.mecab_get_lattice_level(this.ptr))
 }
 
 func (this *Tagger) SetLatticeLevel(level int) {
-  C.mecab_set_lattice_level(this.ptr, C.int(level));
+	C.mecab_set_lattice_level(this.ptr, C.int(level))
 }
 
 func (this *Tagger) GetAllMorphs() int {
-  return int(C.mecab_get_all_morphs(this.ptr));
+	return int(C.mecab_get_all_morphs(this.ptr))
 }
 
 func (this *Tagger) SetAllMorphs(morphs int) {
-  C.mecab_set_all_morphs(this.ptr, C.int(morphs));
+	C.mecab_set_all_morphs(this.ptr, C.int(morphs))
 }
 
 // ============================================
@@ -50,7 +50,7 @@ func (this *Tagger) SetAllMorphs(morphs int) {
 
 // parselattice
 func (this *Tagger) ParseLattice(lat Lattice) int {
-  return int (C.mecab_parse_lattice(this.ptr, lat.ptr));
+	return int(C.mecab_parse_lattice(this.ptr, lat.ptr))
 }
 
 func (this *Tagger) Parse(target string) string {
@@ -73,7 +73,7 @@ func (this *Tagger) ParseNBestInit(target string) int {
 func (this *Tagger) ParseToNode(target string) *Node {
 	target_ptr := C.CString(target)
 	node_ptr := C.mecab_sparse_tonode(this.ptr, target_ptr)
-	return &Node {
+	return &Node{
 		ptr: node_ptr,
 	}
 }
@@ -83,11 +83,19 @@ func (this *Tagger) Next() string {
 	return C.GoString(result_ptr)
 }
 
+func (this *Tagger) NextNode() *Node {
+	return &Node{ptr: C.mecab_nbest_next_tonode(this.ptr)}
+}
+
+func (this *Tagger) FormatNode(node *Node) string {
+	return C.GoString(C.mecab_format_node(this.ptr, node.ptr))
+}
+
 func (this *Tagger) Destroy() {
 	C.mecab_destroy(this.ptr)
 }
 
 func (this *Tagger) GetDictionaryInfo() *DictionaryInfo {
-  dic_ptr := C.mecab_dictionary_info(this.ptr);
-  return &DictionaryInfo{ptr: dic_ptr};
+	dic_ptr := C.mecab_dictionary_info(this.ptr)
+	return &DictionaryInfo{ptr: dic_ptr}
 }
