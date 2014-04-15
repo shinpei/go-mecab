@@ -3,22 +3,29 @@
 
 go-mecab provides simple low-level bindings for [mecab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html), japanese morphological analyzer.
 
+## Requirement
+ * mecab-v0.996
+ * mecab-ipa-dictionary
+
 ## Install
-1. Please fetch, build and install mecab and mecab-ipa-dictionary.
-2. Modify library path in `src/github.com/shinpei/mecab/mecab.go`
+```
+$ go get github.com/shinpei/go-mecab
+```
 
 ## Build
+Modify library path in `src/github.com/shinpei/mecab/mecab.go`
 
 ```csh
-$ go bulid github.com/shinpei/mecab
-$ go install github.com/shinpei/mecab
+$ go bulid github.com/shinpei/go-mecab
+$ go install github.com/shinpei/go-mecab
 $ go build # to build exmaple
 $ ./go-mecab # to execute example
 ```
+
 ## Example
 
 ```go
- import "github.com/shinpei/mecab"
+ import "github.com/shinpei/go-mecab"
  import "fmt"
 
  tagger := mecab.Create();
