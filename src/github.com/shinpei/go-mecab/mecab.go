@@ -10,18 +10,17 @@ static mecab_node_t *trans_mecab_node_t (struct mecab_node_t *node){
 */
 import "C"
 
-// ============================================
-// Types
-
 
 // ============================================
 // instance methods
 
 func Create() *Tagger {
-	taggerPtr := new(Tagger)
 	emptyStringPtr := C.CString("")
-	taggerPtr.ptr = C.mecab_new2(emptyStringPtr)
-	return taggerPtr
+	return &Tagger {ptr: C.mecab_new2(emptyStringPtr)};
+}
+
+func CreateLattice() *Lattice {
+  return &Lattice {ptr: C.mecab_lattice_new()};
 }
 
 // Dictionary
