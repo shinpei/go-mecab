@@ -40,6 +40,19 @@ func (this *Lattice) GetZ() float64 {
 func (this *Lattice) SetZ(z float64) {
   C.mecab_lattice_set_z(this.ptr, C.double(z));
 }
+
+func (this *Lattice) GetTheta() float64 {
+  return float64(C.mecab_lattice_get_theta(this.ptr));
+}
+
+func (this *Lattice) SetTheta(theta float64) {
+  C.mecab_lattice_set_theta(this.ptr, C.double(theta));
+}
+
+func (this *Lattice) GetNext() int {
+  return int(C.mecab_lattice_next(this.ptr));
+}
+
 // ============================================
 // Methods
 
