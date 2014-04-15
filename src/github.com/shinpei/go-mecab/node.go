@@ -17,13 +17,6 @@ type Node struct {
 	ptr *C.mecab_node_t
 }
 
-// ============================================
-// consts
-
-
-
-// ============================================
-// Instance methods
 func (this *Node) Next() {
 	ptr := C.trans_mecab_node_t(this.ptr.next)
 	this.ptr = ptr

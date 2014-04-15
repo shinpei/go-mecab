@@ -1,6 +1,6 @@
 package main
 
-import "github.com/shinpei/mecab"
+import "github.com/shinpei/go-mecab"
 import "fmt"
 
 func main() {
