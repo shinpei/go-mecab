@@ -1,17 +1,19 @@
-package main
+package mecab
 
-import "github.com/shinpei/go-mecab"
-import "fmt"
+import (
+       "fmt"
+       "testing"
+)
 
 /*
 Go-mecab version of the example code below,
 http://mecab.googlecode.com/svn/trunk/mecab/doc/libmecab.html
 */
 
-func main() {
-	fmt.Println("version: " + mecab.GetVersion())
+func Test_Mecab(t *testing.T) {
+	fmt.Println("version: " + GetVersion())
 
-	tagger := mecab.Create()
+	tagger := Create()
 	fmt.Println("####### given parameter str ########")
 	s := "太郎は次郎が持っている本を花子に渡した。"
 	fmt.Println("str=" + s)
@@ -79,9 +81,9 @@ func main() {
 	}
 
 	fmt.Println("####### Constants  ########")
-	fmt.Printf("MECAB_SYS_DIC=%d\n", mecab.MECAB_SYS_DIC)
-	fmt.Printf("MECAB_USR_DIC=%d\n", mecab.MECAB_USR_DIC)
-	fmt.Printf("MECAB_UNK_DIC=%d\n", mecab.MECAB_UNK_DIC)
+	fmt.Printf("MECAB_SYS_DIC=%d\n", MECAB_SYS_DIC)
+	fmt.Printf("MECAB_USR_DIC=%d\n", MECAB_USR_DIC)
+	fmt.Printf("MECAB_UNK_DIC=%d\n", MECAB_UNK_DIC)
 
 	tagger.Destroy()
 }
