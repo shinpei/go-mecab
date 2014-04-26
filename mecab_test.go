@@ -28,7 +28,8 @@ func Test_Mecab(t *testing.T) {
 	fmt.Println(node.HasNext())
 	for i := 0; node.HasNext(); i++ {
 		node.Next()
-		fmt.Printf("%s, ", node.GetSurface())
+		fmt.Printf("%s, ", node.GetSurface());
+		fmt.Printf("%s, ", node.GetFeature());
 		fmt.Printf("%d, ", node.GetId())
 		fmt.Printf("%d, ", node.GetLength())
 		fmt.Printf("%d, ", node.GetRlength())

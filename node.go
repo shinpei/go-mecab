@@ -3,6 +3,7 @@ package mecab
 /*
 #cgo LDFLAGS: -L/usr/local/lib -lmecab -lstdc++
 #include <mecab.h>
+#include <stdlib.h>
 
 static mecab_node_t *trans_mecab_node_t (struct mecab_node_t *node){
   return node;
@@ -27,7 +28,11 @@ func (this *Node) HasNext() bool {
 }
 
 func (this *Node) GetSurface() string {
-	return C.GoString(this.ptr.surface)
+	return C.GoStringN(this.ptr.surface, C.int(this.ptr.length));
+}
+
+func(this *Node) GetFeature() string {
+  return C.GoString(this.ptr.feature);
 }
 
 func (this *Node) GetId() int {
